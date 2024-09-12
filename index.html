@@ -29,8 +29,8 @@
             background: rgba(35, 70, 156, 0.5);
             animation: pulse-border 1s infinite;
             opacity: 0;
-            -webkit-animation: pulse-border 1500ms ease-out infinite;
-            animation : pulse-border 1500ms ease-out infinite;
+            -webkit-animation: pulse-border 1500ms ease-in-out linear infinite;
+            animation : pulse-border 1500ms ease-in-out infinite;
         }
 
         .float-nav-2:focus{
@@ -39,8 +39,8 @@
         }
 
         @keyframes pulse-border {
-            0%{transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1); opacity: 1;}
-            100%{transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5); opacity: 1;}
+            0%, 100%{transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1); opacity: 0.5;}
+            50%{transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5); opacity: 1;}
         }
         
         .float-nav-2:hover {
@@ -168,6 +168,20 @@
             chatContainer.style.display = 'none';
             document.getElementById('globo').style.display = 'block';
             icon.style.display = 'block';
+        }
+
+        var esTactil = 'ontouchstart' in window || navigator.maxTouchPoints;
+
+        if (esTactil) {
+            botIcon.addEventListener('touchstart', function(event){
+                event.preventDefault();
+                openChat();
+            });
+        } else {
+            botIcon.addEventListener('click', function(event){
+                event.preventDefault();
+                openChat();
+            });
         }
     </script>
 </body>
