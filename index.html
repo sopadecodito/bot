@@ -131,14 +131,17 @@
     <script>
         var chatContainer = document.getElementById('hashLink');
         var icon = document.querySelector('.float-nav-2');
+        var globo = document.getElementById('globo');
     
         function checkScreenSize() {
             if (window.innerWidth < 1024) { 
                 chatContainer.style.display = 'none';
                 icon.style.display = 'block';
+                globo.style.display = 'block';
             } else {
                 chatContainer.style.display = 'block';
                 icon.style.display = 'none';
+                globo.style.display = 'none';
             }
         }
     
@@ -146,6 +149,7 @@
             checkScreenSize();
             if (window.innerWidth >= 1024 && sessionStorage.getItem("Precibot") !== '1') {
                 chatContainer.style.display = 'block';
+
             } else {
                 chatContainer.style.display = 'none';
             }
