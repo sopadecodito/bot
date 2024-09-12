@@ -1,0 +1,169 @@
+<head>
+    <style>
+        .float-nav {
+            position: fixed;
+            bottom: 0px;
+            right: 1vw; 
+            z-index: 9999999;
+        }
+        
+        .float-nav-2 {
+            position: fixed;
+            bottom: 15px;
+            right: 0.5vw; 
+            z-index: 9999;
+
+        }
+
+        .float-nav-2::before {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 46%;
+            display: block;
+            transform: translateX(-50%) translateY(-50%);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(35, 70, 156, 0.5);
+            animation: pulse-border 1s infinite;
+            opacity: 0;
+            -webkit-animation: pulse-border 1500ms ease-out infinite;
+            animation : pulse-border 1500ms ease-out infinite;
+        }
+
+        .float-nav-2:focus{
+            border: none;
+            outline: none;
+        }
+
+        @keyframes pulse-border {
+            0%{transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1); opacity: 1;}
+            100%{transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5); opacity: 1;}
+        }
+        
+        .float-nav-2:hover {
+            cursor: pointer;
+        }
+        
+        .main-nav-2 {
+            font-family: sans-serif;
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            width: 450px;
+            max-width: 500px; 
+            height: 55vh; 
+            margin: auto;
+            border-radius: 10px 10px 0px 0px;
+        }
+        
+        .main-nav-2.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .globo {
+    border-radius: 15px;
+    padding: 8px;
+    background: rgb(231, 231, 231);
+    color: black;
+    width: 120px;
+    margin: 0 auto;
+    font-family: sans-serif;
+    font-size: 10px;
+    z-index: -1;
+    position: absolute;
+    bottom: 25px;
+    right: 110px; 
+    text-align: center; /* Centrar el texto horizontalmente */
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; /* Centrar verticalmente */
+    align-items: center; /* Alinear horizontalmente */
+    height: 30px; 
+    line-height: 0.2;
+
+}
+
+.globo::after {
+    content: '';
+    position: absolute;
+    bottom: 15px;
+    right: -12px;
+    background: transparent;
+    width: 0px; 
+    height: 0px;
+    border-bottom: 15px solid rgb(231, 231, 231);
+    border-right: 15px solid transparent; 
+    border-left: 15px solid transparent; 
+    transform: rotate(90deg);
+    z-index: -1;
+}
+    </style>
+</head>
+
+<body>
+    <div class="float-nav">
+        <div id="hashLink" class="main-nav-2">
+            <iframe class="main-nav-2" src="https://copilotstudio.microsoft.com/environments/9929642d-86c2-47c4-adc7-3f1f5ac39020/bots/crf8a_bot1/webchat?__version__=2" frameborder="0" style="width: 80%; height: 100%; padding-bottom: 8px;"></iframe>
+            <span class="close-button" onclick="closeChat()">-</span>
+        </div>
+    </div>
+
+    <a class="float-nav-2" href="#hashLink" onclick="openChat()">
+        <img src="https://i.postimg.cc/VN9gLQmv/Microsoft-Teams-image-35.png" width="100vh" style="padding-right: 10px;">
+        <div class="globo" id="globo" style="display: none;">
+            <p>¿Necesitas más informes?</p>
+            <strong>Escríbanos</strong>
+        </div>
+    </a>
+
+    <script>
+        var chatContainer = document.getElementById('hashLink');
+        var icon = document.querySelector('.float-nav-2');
+    
+        function checkScreenSize() {
+            if (window.innerWidth < 1024) { 
+                chatContainer.style.display = 'none';
+                icon.style.display = 'block';
+            } else {
+                chatContainer.style.display = 'block';
+                icon.style.display = 'none';
+            }
+        }
+    
+        window.onload = function() {
+            checkScreenSize();
+            if (window.innerWidth >= 1024 && sessionStorage.getItem("Precibot") !== '1') {
+                chatContainer.style.display = 'block';
+            } else {
+                chatContainer.style.display = 'none';
+            }
+        };
+    
+        window.onresize = checkScreenSize;
+    
+        function openChat() {
+            chatContainer.style.display = 'block';
+            document.getElementById('globo').style.display = 'none';
+            icon.style.display = 'none'; 
+        }
+
+        function closeChat() {
+            sessionStorage.setItem('Precibot', '1');
+            chatContainer.style.display = 'none';
+            document.getElementById('globo').style.display = 'block';
+            icon.style.display = 'block';
+        }
+    </script>
+</body>
